@@ -16,41 +16,49 @@ namespace WAT
 {
     public partial class WAT : Form
     {
-
         public WAT()
         {
             InitializeComponent();
         }
-
         private void btnCalibration_Click(object sender, EventArgs e)
         {
             btnReset.Visible = true;
             timer1.Enabled = true;
-            move_black.Visible = true;
+            timer2.Enabled = true;
+            max_x = move_black.Location.X;
+            max_y = move_black.Location.Y;
+            
             angle = 0;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            timer2.Enabled = false;
             move_black.Visible = false;
+
+            move_black.Location = new Point(max_x, max_y);
         }
 
         private void move_timer(object sender, EventArgs e)
         {
-            //x = (int)(X_radius * Math.Cos(angle));
-            //y = (int)(Y_radius * Math.Sin(angle));
-            int max_x = move_black.Location.X;
-            int max_y = move_black.Location.Y;
+            move_black.Visible = true;
 
-            int x = (int)(max_x/2);
-            int y = (int)(max_y/2);
+            x = (int)(max_x / 2 * Math.Cos(angle));
+            y= (int)(max_y / 2 * Math.Sin(angle));
 
-            move_black.Location = new Point(x, y);
+            move_black.Location = new Point(max_x/2 + x, max_y/2 + y);
 
-            angle += 0.1;
+            angle += 0.05;
             if (angle == 360)
                 angle = 0;
+        }
+
+        private void timer1_stop(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            btnNext.Visible = true;
+            timer2.Enabled = false;
         }
     }
 }
