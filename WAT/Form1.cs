@@ -20,6 +20,7 @@ namespace WAT
         {
             InitializeComponent();
         }
+
         private void btnCalibration_Click(object sender, EventArgs e)
         {
             btnReset.Visible = true;
@@ -41,6 +42,17 @@ namespace WAT
                 move_black.Location = new Point(max_x/2, max_y/2);
                 move_black.Visible = true;
                 move_black.Size = new Size(50, 50);
+            }
+
+            if (flag == 3)
+            {
+                //게임 했다 치고
+                btnCalibration.Text = "End";
+                return;
+            }
+            if (flag == 4)
+            {
+
             }
         }
 
@@ -92,13 +104,16 @@ namespace WAT
             if (flag == 1)
             {
                 btnCalibration.Text = "Calibration2";
-
+                return;
                 //그래프 보여주고 넘어갈건가????
             }
 
             if (flag == 2)
             {
-                ////////////////////////여기서부터 시작핫겜
+                Cal2text.Visible = false;
+                btnReset.Visible = false;
+                btnCalibration.Text = "Game Start";
+                return;
             }
 
         }
@@ -106,7 +121,7 @@ namespace WAT
         //Cal1 -> Cal2 로 btn text 변환될 때
         private void change_flag(object sender, EventArgs e)
         {
-            flag = 2;
+            flag += 1;
         }
 
         private void Calibration2_Timer(object sender, EventArgs e)
